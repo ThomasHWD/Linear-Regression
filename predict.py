@@ -11,7 +11,7 @@ def manageFile() -> None:
             lines = file.readlines()
             data = {}
             for line in lines:
-                key, val = line.split('=')
+                key, val = line.split('=', 1)
                 data[key.strip()] = float(val.strip())
 
             T0 = data.get('T0', 0.0)
@@ -20,14 +20,14 @@ def manageFile() -> None:
             max_km = data.get('max_km', 0.0)
 
     except Exception as e:
-        print(f'Error: {e}')
+        # print(f'Error: {e}')
         T0, T1, min_km, max_km = 0.0, 0.0, 0.0, 0.0
 
 
 def mileageInput() -> float:
     while True:
         try:
-            line = input("Enter a mileage: ")
+            line = input(f"{"\033[96m"}Enter a mileage: {"\033[0m"}")
             mileage = float(line)
             if mileage < 0:
                 print("Error: mileage cannot be negative.")
@@ -51,7 +51,7 @@ def main():
 
         if estimatePrice < 0:
             estimatePrice = 0.0
-        print(f'Estimate price: {estimatePrice:.2f}$')
+        print(f'{"\033[95m"}Estimate price: {estimatePrice:.2f}${"\033[0m"}')
 
     except Exception as e:
         print(f'Error: {e}')

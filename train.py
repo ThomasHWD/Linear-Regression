@@ -1,4 +1,5 @@
 import matplotlib.pyplot as plt
+import time
 
 
 def visuals_bonus(kms, prices, T0, T1, min_km, max_km) -> None:
@@ -38,7 +39,7 @@ def accuracy_bonus(T0, T1, kms_norm, prices, m) -> None:
 
     r2 = 1 - (s_res / s_total)
 
-    print(f'Program accuracy: {r2 * 100:.0f}%')
+    print(f'{"\033[96m"}Program accuracy: {r2 * 100:.0f}%{"\033[0m"}')
 
 
 def readCSV():
@@ -78,6 +79,9 @@ def main():
         iterations = 1000
         m = len(kms_norm)
 
+        # Start chrono
+        start_time = time.time()
+
         # Algo
         for _ in range(iterations):
             sum_error0 = 0.0
@@ -91,6 +95,11 @@ def main():
 
             T0 -= (learningRate / m) * sum_error0
             T1 -= (learningRate / m) * sum_error1
+
+        # Fin du chrono
+        end_time = time.time()
+        duration = end_time - start_time
+        print(f"{"\033[95m"}Training completed in {duration:.4f} seconds{"\033[0m"}")
 
         # Save values
         with open('var.txt', 'w') as f:
